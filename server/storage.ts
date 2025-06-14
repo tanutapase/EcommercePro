@@ -70,17 +70,25 @@ export class MemStorage implements IStorage {
 
   private initializeData() {
     // Initialize categories
-    const categoryData: InsertCategory[] = [
+    const categoryData = [
       { name: "Fashion", description: "Trendy clothing and accessories", icon: "fas fa-tshirt", color: "purple" },
       { name: "Electronics", description: "Latest gadgets and tech", icon: "fas fa-laptop", color: "blue" },
       { name: "Home & Decor", description: "Beautiful home essentials", icon: "fas fa-home", color: "green" },
       { name: "Sports", description: "Fitness and sports equipment", icon: "fas fa-dumbbell", color: "orange" },
-    ];
+    ] as const;
 
-    categoryData.forEach(cat => this.createCategory(cat));
+    categoryData.forEach(cat => {
+      const category: InsertCategory = {
+        name: cat.name,
+        description: cat.description,
+        icon: cat.icon,
+        color: cat.color
+      };
+      this.createCategory(category);
+    });
 
     // Initialize products
-    const productData: InsertProduct[] = [
+    const productData = [
       {
         name: "Designer Dress",
         description: "Elegant designer dress perfect for special occasions",
@@ -166,12 +174,27 @@ export class MemStorage implements IStorage {
         reviewCount: 156,
         tags: ["smartwatch", "fitness", "gps"]
       }
-    ];
+    ] as const;
 
-    productData.forEach(prod => this.createProduct(prod));
+    productData.forEach(prod => {
+      const product: InsertProduct = {
+        name: prod.name,
+        description: prod.description,
+        price: prod.price,
+        originalPrice: (prod as any).originalPrice,
+        image: prod.image,
+        categoryId: prod.categoryId,
+        rating: prod.rating,
+        reviewCount: prod.reviewCount,
+        isSale: (prod as any).isSale,
+        isNew: (prod as any).isNew,
+        tags: prod.tags ? [...prod.tags] : undefined
+      };
+      this.createProduct(product);
+    });
 
     // Initialize reviews
-    const reviewData: InsertReview[] = [
+    const reviewData = [
       {
         productId: 1,
         customerName: "Sarah Johnson",
@@ -193,9 +216,18 @@ export class MemStorage implements IStorage {
         comment: "Love the modern design, fits perfectly in my living room.",
         avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b3e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=60&h=60"
       }
-    ];
+    ] as const;
 
-    reviewData.forEach(review => this.createReview(review));
+    reviewData.forEach(rev => {
+      const review: InsertReview = {
+        productId: rev.productId,
+        customerName: rev.customerName,
+        rating: rev.rating,
+        comment: rev.comment,
+        avatar: rev.avatar
+      };
+      this.createReview(review);
+    });
   }
 
   // Categories
@@ -208,7 +240,11 @@ export class MemStorage implements IStorage {
   }
 
   async createCategory(category: InsertCategory): Promise<Category> {
-    const newCategory: Category = { ...category, id: this.categoryIdCounter++ };
+    const newCategory: Category = { 
+      ...category, 
+      id: this.categoryIdCounter++,
+      description: category.description || null
+    };
     this.categories.set(newCategory.id, newCategory);
     return newCategory;
   }
@@ -247,7 +283,19 @@ export class MemStorage implements IStorage {
   }
 
   async createProduct(product: InsertProduct): Promise<Product> {
-    const newProduct: Product = { ...product, id: this.productIdCounter++ };
+    const newProduct: Product = { 
+      ...product, 
+      id: this.productIdCounter++,
+      description: product.description || null,
+      categoryId: product.categoryId || null,
+      originalPrice: product.originalPrice || null,
+      rating: product.rating || null,
+      reviewCount: product.reviewCount || null,
+      inStock: product.inStock ?? true,
+      isNew: product.isNew ?? false,
+      isSale: product.isSale ?? false,
+      tags: product.tags || null
+    };
     this.products.set(newProduct.id, newProduct);
     return newProduct;
   }
@@ -258,7 +306,13 @@ export class MemStorage implements IStorage {
   }
 
   async createReview(review: InsertReview): Promise<Review> {
-    const newReview: Review = { ...review, id: this.reviewIdCounter++ };
+    const newReview: Review = { 
+      ...review, 
+      id: this.reviewIdCounter++,
+      productId: review.productId || null,
+      comment: review.comment || null,
+      avatar: review.avatar || null
+    };
     this.reviews.set(newReview.id, newReview);
     return newReview;
   }
