@@ -176,22 +176,21 @@ export class MemStorage implements IStorage {
       }
     ] as const;
 
-    productData.forEach(prod => {
-      const product: InsertProduct = {
+    for (const prod of productData) {
+      this.createProduct({
         name: prod.name,
-        description: prod.description,
+        description: prod.description || null,
         price: prod.price,
-        originalPrice: (prod as any).originalPrice,
+        originalPrice: 'originalPrice' in prod ? prod.originalPrice : undefined,
         image: prod.image,
-        categoryId: prod.categoryId,
-        rating: prod.rating,
-        reviewCount: prod.reviewCount,
-        isSale: (prod as any).isSale,
-        isNew: (prod as any).isNew,
-        tags: prod.tags ? [...prod.tags] : undefined
-      };
-      this.createProduct(product);
-    });
+        categoryId: prod.categoryId || null,
+        rating: prod.rating || null,
+        reviewCount: prod.reviewCount || null,
+        isSale: 'isSale' in prod ? prod.isSale : false,
+        isNew: 'isNew' in prod ? prod.isNew : false,
+        tags: prod.tags ? [...prod.tags] : null
+      });
+    }
 
     // Initialize reviews
     const reviewData = [

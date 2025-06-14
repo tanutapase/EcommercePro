@@ -267,7 +267,8 @@
 }
 
 .badge-new {
-  @apply bg-success text-success-foreground;
+  background-color: hsl(var(--success));
+  color: hsl(var(--success-foreground));
 }
 
 .badge-bestseller {
@@ -276,7 +277,8 @@
 
 /* Notification styles */
 .notification-success {
-  @apply bg-success text-success-foreground;
+  background-color: hsl(var(--success));
+  color: hsl(var(--success-foreground));
 }
 
 .notification-error {
