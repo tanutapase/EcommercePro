@@ -153,7 +153,7 @@ export default function Header() {
               variant="ghost"
               size="sm"
               onClick={() => setDarkMode(!darkMode)}
-              className="hidden md:flex h-9 w-9 p-0 rounded-full hover:bg-gray-100 text-gray-600"
+              className="flex h-9 w-9 p-0 rounded-full hover:bg-gray-100 text-gray-600"
             >
               <AnimatePresence mode="wait">
                 {darkMode ? (
