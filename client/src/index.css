@@ -544,3 +544,159 @@
   font-weight: 500;
   color: white;
 }
+
+/* ==========================================
+   DARK MODE OVERRIDES
+   All hardcoded light colors are overridden
+   here so zero component changes are needed.
+   ========================================== */
+
+/* CSS variable overrides for dark */
+.dark {
+  --background: hsl(222, 47%, 5%);
+  --foreground: hsl(210, 40%, 96%);
+  --muted: hsl(217, 33%, 12%);
+  --muted-foreground: hsl(215, 20%, 60%);
+  --popover: hsl(222, 47%, 8%);
+  --popover-foreground: hsl(210, 40%, 96%);
+  --card: hsl(222, 47%, 8%);
+  --card-foreground: hsl(210, 40%, 96%);
+  --border: hsl(217, 33%, 16%);
+  --input: hsl(217, 33%, 16%);
+  --secondary: hsl(217, 33%, 12%);
+  --secondary-foreground: hsl(210, 40%, 96%);
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+/* Page & body */
+.dark body { background-color: hsl(222, 47%, 5%); color: hsl(210, 40%, 96%); }
+
+/* ── Backgrounds ─────────────────────────────── */
+.dark .bg-white   { background-color: hsl(222, 47%, 8%) !important; }
+.dark .bg-gray-50 { background-color: hsl(222, 47%, 7%) !important; }
+.dark .bg-gray-100 { background-color: hsl(222, 33%, 11%) !important; }
+.dark .bg-gray-950 { background-color: hsl(222, 47%, 3%) !important; }
+.dark .aurora-bg  { background: radial-gradient(ellipse at 20% 50%, rgba(59,130,246,0.06) 0%, transparent 60%), hsl(222, 47%, 5%) !important; }
+.dark .hero-gradient { background: hsl(222, 47%, 5%) !important; }
+
+/* ── Text ────────────────────────────────────── */
+.dark .text-gray-900 { color: hsl(210, 40%, 94%) !important; }
+.dark .text-gray-800 { color: hsl(210, 40%, 88%) !important; }
+.dark .text-gray-700 { color: hsl(215, 20%, 75%) !important; }
+.dark .text-gray-600 { color: hsl(215, 20%, 65%) !important; }
+.dark .text-gray-500 { color: hsl(215, 16%, 50%) !important; }
+.dark .text-gray-400 { color: hsl(215, 16%, 44%) !important; }
+
+/* ── Borders ─────────────────────────────────── */
+.dark .border-gray-100 { border-color: hsl(217, 33%, 15%) !important; }
+.dark .border-gray-200 { border-color: hsl(217, 33%, 18%) !important; }
+
+/* ── Hover backgrounds ────────────────────────── */
+.dark .hover\:bg-gray-50:hover  { background-color: hsl(222, 33%, 12%) !important; }
+.dark .hover\:bg-gray-100:hover { background-color: hsl(222, 33%, 14%) !important; }
+
+/* ── Navbar ──────────────────────────────────── */
+.dark header {
+  background: rgba(10, 15, 30, 0.85) !important;
+  border-bottom-color: rgba(255,255,255,0.06) !important;
+}
+.dark .glass {
+  background: rgba(10, 15, 30, 0.85) !important;
+  border-color: rgba(255,255,255,0.06) !important;
+}
+
+/* ── Announcement bar keeps its gradient ─────── */
+
+/* ── Product cards ───────────────────────────── */
+.dark .product-card {
+  background: hsl(222, 47%, 9%) !important;
+  border-color: hsl(217, 33%, 15%) !important;
+}
+.dark .product-card:hover {
+  border-color: rgba(59,130,246,0.3) !important;
+  box-shadow: 0 24px 48px -8px rgba(0,0,0,0.5), 0 0 0 1px rgba(59,130,246,0.15) !important;
+}
+.dark .product-card .bg-gray-50 { background-color: hsl(222, 47%, 12%) !important; }
+
+/* ── Category cards ──────────────────────────── */
+.dark .category-card { border-color: hsl(217, 33%, 15%) !important; }
+.dark .category-card > div:last-child { background: hsl(222, 47%, 9%) !important; }
+
+/* ── Cart drawer ─────────────────────────────── */
+.dark [data-radix-dialog-content],
+.dark [data-state] .bg-white {
+  background-color: hsl(222, 47%, 8%) !important;
+}
+.dark .border-gray-100 { border-color: hsl(217, 33%, 15%) !important; }
+.dark .bg-gray-950 + * { background-color: hsl(222, 47%, 3%) !important; }
+
+/* Sheet / drawer background */
+.dark [role="dialog"] > div {
+  background-color: hsl(222, 47%, 8%) !important;
+}
+
+/* ── Inputs ──────────────────────────────────── */
+.dark input,
+.dark textarea {
+  background-color: hsl(217, 33%, 12%) !important;
+  border-color: hsl(217, 33%, 18%) !important;
+  color: hsl(210, 40%, 94%) !important;
+}
+.dark input::placeholder { color: hsl(215, 16%, 44%) !important; }
+
+/* ── Buttons & interactive ────────────────────── */
+.dark .bg-gray-900  { background-color: hsl(210, 40%, 94%) !important; color: hsl(222, 47%, 8%) !important; }
+.dark .bg-gray-800  { background-color: hsl(210, 40%, 90%) !important; color: hsl(222, 47%, 8%) !important; }
+.dark .hover\:bg-gray-800:hover { background-color: hsl(210, 40%, 85%) !important; }
+.dark .hover\:bg-gray-900:hover { background-color: hsl(210, 40%, 90%) !important; }
+
+/* ── Sections ────────────────────────────────── */
+.dark section.bg-white   { background-color: hsl(222, 47%, 7%) !important; }
+.dark section.bg-gray-50 { background-color: hsl(222, 47%, 6%) !important; }
+
+/* ── Cards ───────────────────────────────────── */
+.dark .rounded-2xl.bg-white,
+.dark .rounded-xl.bg-white  { background-color: hsl(222, 47%, 9%) !important; }
+.dark .rounded-2xl.border-gray-100 { border-color: hsl(217, 33%, 15%) !important; }
+.dark .bg-gray-50.rounded-xl,
+.dark .bg-gray-50.rounded-2xl { background-color: hsl(222, 47%, 10%) !important; }
+
+/* ── Trust badges row ─────────────────────────── */
+.dark .bg-white.border.border-gray-100 { background-color: hsl(222, 47%, 9%) !important; border-color: hsl(217,33%,15%) !important; }
+
+/* ── Feature icon backgrounds ─────────────────── */
+.dark .bg-blue-50   { background-color: rgba(59,130,246,0.12) !important; }
+.dark .bg-violet-50 { background-color: rgba(139,92,246,0.12) !important; }
+.dark .bg-emerald-50 { background-color: rgba(16,185,129,0.12) !important; }
+.dark .bg-amber-50  { background-color: rgba(245,158,11,0.12) !important; }
+.dark .bg-pink-50   { background-color: rgba(236,72,153,0.12) !important; }
+.dark .bg-cyan-50   { background-color: rgba(6,182,212,0.12) !important; }
+.dark .bg-orange-50 { background-color: rgba(249,115,22,0.12) !important; }
+.dark .bg-rose-50   { background-color: rgba(244,63,94,0.12) !important; }
+
+/* ── Scroll area & separators ─────────────────── */
+.dark [data-radix-scroll-area-viewport] { background-color: hsl(222, 47%, 8%) !important; }
+.dark hr, .dark [data-orientation="horizontal"] { border-color: hsl(217, 33%, 15%) !important; }
+
+/* ── Stats bar already dark, keep it ─────────── */
+
+/* ── Section dot pattern ──────────────────────── */
+.dark .section-dot-pattern {
+  background-image: radial-gradient(circle, rgba(99,102,241,0.12) 1px, transparent 1px) !important;
+}
+
+/* ── Mobile menu sheet ────────────────────────── */
+.dark .flex.flex-col.h-full { background-color: hsl(222,47%,8%) !important; }
+.dark .flex.flex-col.h-full .border-b,
+.dark .flex.flex-col.h-full .border-t { border-color: hsl(217,33%,15%) !important; }
+
+/* ── Smooth transition for everything ─────────── */
+*, *::before, *::after {
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.15s ease;
+}
+/* Don't transition animations */
+.animate-float, .animate-float-slow, .blob, [class*="animate-"] {
+  transition: none !important;
+}
