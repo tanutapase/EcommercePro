@@ -58,10 +58,25 @@ export default function Footer() {
 
   const social = [
     { icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-[#1DA1F2]" },
-    { icon: Instagram, href: "#", label: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500" },
-    { icon: Facebook, href: "#", label: "Facebook", color: "hover:bg-[#1877F2]" },
+    {
+      icon: Instagram,
+      href: "#",
+      label: "Instagram",
+      color: "hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500",
+    },
+    {
+      icon: Facebook,
+      href: "#",
+      label: "Facebook",
+      color: "hover:bg-[#1877F2]",
+    },
     { icon: Youtube, href: "#", label: "YouTube", color: "hover:bg-[#FF0000]" },
-    { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:bg-[#0A66C2]" },
+    {
+      icon: Linkedin,
+      href: "#",
+      label: "LinkedIn",
+      color: "hover:bg-[#0A66C2]",
+    },
   ];
 
   const perks = [
@@ -92,7 +107,9 @@ export default function Footer() {
                     <Icon className="h-5 w-5 text-blue-400" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-white">{perk.label}</p>
+                    <p className="text-sm font-semibold text-white">
+                      {perk.label}
+                    </p>
                     <p className="text-xs text-gray-500">{perk.sub}</p>
                   </div>
                 </motion.div>
@@ -118,19 +135,24 @@ export default function Footer() {
               </div>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed mb-6 max-w-xs">
-              Your premier destination for curated premium products. Quality guaranteed, style delivered, satisfaction assured.
+              Your premier destination for curated premium products. Quality
+              guaranteed, style delivered, satisfaction assured.
             </p>
 
             {/* Newsletter */}
             <div className="mb-6">
-              <p className="text-sm font-semibold text-white mb-3">Stay in the loop</p>
+              <p className="text-sm font-semibold text-white mb-3">
+                Stay in the loop
+              </p>
               {subscribed ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   className="flex items-center gap-2 text-green-400 text-sm font-medium"
                 >
-                  <span className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">✓</span>
+                  <span className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">
+                    ✓
+                  </span>
                   You're subscribed! Welcome aboard.
                 </motion.div>
               ) : (
@@ -213,19 +235,28 @@ export default function Footer() {
       <div className="border-t border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-gray-500">
-            © 2025 EliteShop. All rights reserved.
+            © 2025 EliteShop. All rights reserved by Tanu.
           </p>
           <div className="flex items-center gap-4 text-xs text-gray-500">
-            <a href="#" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              Privacy Policy
+            </a>
             <span className="text-gray-700">·</span>
-            <a href="#" className="hover:text-gray-300 transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              Terms of Service
+            </a>
             <span className="text-gray-700">·</span>
-            <a href="#" className="hover:text-gray-300 transition-colors">Cookie Settings</a>
+            <a href="#" className="hover:text-gray-300 transition-colors">
+              Cookie Settings
+            </a>
           </div>
           <div className="flex items-center gap-2 text-xs text-gray-500">
             <span>Accepted payments:</span>
             {["VISA", "MC", "AMEX", "PayPal"].map((p) => (
-              <span key={p} className="px-2 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-bold">
+              <span
+                key={p}
+                className="px-2 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-bold"
+              >
                 {p}
               </span>
             ))}
