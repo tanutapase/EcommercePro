@@ -1,14 +1,12 @@
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from "@/components/ui/sheet";
-import { Minus, Plus, Trash2, ShoppingCart, X } from "lucide-react";
+import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, Package, Shield, Truck, Tag } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatPrice } from "@/lib/utils";
 import { useLocation } from "wouter";
-import LoadingSpinner from "@/components/ui/loading-spinner";
 
 export default function CartModal() {
   const [, navigate] = useLocation();
@@ -27,6 +25,11 @@ export default function CartModal() {
     0
   ) || 0;
 
+  const itemCount = cartItems?.reduce((total, item) => total + item.quantity, 0) || 0;
+  const freeShippingThreshold = 50;
+  const progressToFreeShipping = Math.min((totalPrice / freeShippingThreshold) * 100, 100);
+  const remainingForFreeShip = Math.max(0, freeShippingThreshold - totalPrice);
+
   const handleCheckout = () => {
     closeCart();
     navigate("/checkout");
@@ -43,121 +46,175 @@ export default function CartModal() {
 
   return (
     <Sheet open={isCartOpen} onOpenChange={(open) => !open && closeCart()}>
-      <SheetContent side="right" className="w-full sm:max-w-md flex flex-col">
-        <SheetHeader className="space-y-4">
+      <SheetContent
+        side="right"
+        className="w-full sm:max-w-[420px] p-0 flex flex-col border-l border-gray-100"
+        style={{ background: "hsl(0,0%,99%)" }}
+      >
+        {/* Header */}
+        <SheetHeader className="px-6 pt-6 pb-4 border-b border-gray-100">
           <div className="flex items-center justify-between">
-            <SheetTitle className="flex items-center space-x-2">
-              <ShoppingCart className="h-5 w-5" />
-              <span>Shopping Cart</span>
-            </SheetTitle>
-            <Badge variant="secondary" className="text-xs">
-              {cartItems?.reduce((total, item) => total + item.quantity, 0) || 0} items
-            </Badge>
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-gray-900 flex items-center justify-center">
+                <ShoppingBag className="h-4 w-4 text-white" />
+              </div>
+              <div>
+                <SheetTitle className="text-base font-bold tracking-tight">Shopping Cart</SheetTitle>
+                <p className="text-xs text-gray-400 font-medium">
+                  {itemCount === 0 ? "No items" : `${itemCount} item${itemCount !== 1 ? "s" : ""}`}
+                </p>
+              </div>
+            </div>
+            {cartItems && cartItems.length > 0 && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={clearCart}
+                className="text-xs text-gray-400 hover:text-red-500 h-7 px-2 rounded-lg"
+              >
+                Clear all
+              </Button>
+            )}
           </div>
+
+          {/* Free shipping progress */}
           {cartItems && cartItems.length > 0 && (
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={clearCart}
-              className="w-full"
-            >
-              Clear Cart
-            </Button>
+            <div className="mt-4">
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-xs text-gray-500 flex items-center gap-1">
+                  <Truck className="h-3 w-3" />
+                  {remainingForFreeShip > 0
+                    ? <span>Add <strong className="text-gray-900">{formatPrice(remainingForFreeShip.toString())}</strong> for free shipping</span>
+                    : <span className="text-green-600 font-semibold">🎉 You've unlocked free shipping!</span>
+                  }
+                </span>
+              </div>
+              <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                <motion.div
+                  className="h-full rounded-full bg-gradient-to-r from-blue-500 to-violet-500"
+                  initial={{ width: 0 }}
+                  animate={{ width: `${progressToFreeShipping}%` }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                />
+              </div>
+            </div>
           )}
         </SheetHeader>
 
+        {/* Content */}
         <div className="flex-1 overflow-hidden">
           {isLoading ? (
-            <div className="flex items-center justify-center h-32">
-              <LoadingSpinner size="lg" />
+            <div className="flex flex-col gap-4 p-6">
+              {[1, 2].map((i) => (
+                <div key={i} className="flex gap-3">
+                  <div className="w-16 h-16 skeleton rounded-xl" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-3.5 skeleton rounded w-3/4" />
+                    <div className="h-3 skeleton rounded w-1/2" />
+                    <div className="h-3.5 skeleton rounded w-1/3" />
+                  </div>
+                </div>
+              ))}
             </div>
           ) : !cartItems || cartItems.length === 0 ? (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col items-center justify-center h-full text-center py-12"
+              className="flex flex-col items-center justify-center h-full text-center px-8 py-12"
             >
-              <ShoppingCart className="h-16 w-16 text-gray-300 mb-4" />
-              <h3 className="text-lg font-semibold text-gray-500 mb-2">Your cart is empty</h3>
-              <p className="text-gray-400 mb-6">Add some products to get started!</p>
-              <Button onClick={() => { closeCart(); navigate("/products"); }}>
-                Continue Shopping
+              <div className="w-20 h-20 rounded-2xl bg-gray-50 flex items-center justify-center mb-4">
+                <ShoppingBag className="h-9 w-9 text-gray-300" />
+              </div>
+              <h3 className="text-base font-semibold text-gray-700 mb-1.5">Your cart is empty</h3>
+              <p className="text-sm text-gray-400 mb-6 leading-relaxed">
+                Looks like you haven't added anything yet. Start exploring!
+              </p>
+              <Button
+                onClick={() => { closeCart(); navigate("/products"); }}
+                className="btn-primary rounded-full px-6"
+              >
+                Browse Products
               </Button>
             </motion.div>
           ) : (
-            <ScrollArea className="h-full pr-4">
-              <div className="space-y-4">
-                <AnimatePresence>
-                  {cartItems.map((item) => (
+            <ScrollArea className="h-full">
+              <div className="px-6 py-4 space-y-3">
+                <AnimatePresence initial={false}>
+                  {cartItems.map((item, i) => (
                     <motion.div
                       key={item.id}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      className="flex items-center space-x-4 p-4 bg-card rounded-lg border"
+                      layout
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, x: 30, height: 0, marginBottom: 0 }}
+                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                      className="flex gap-3 p-3 rounded-2xl bg-white border border-gray-100 shadow-sm"
                     >
-                      <div className="relative">
+                      <div className="relative flex-shrink-0">
                         <img
                           src={item.product.image}
                           alt={item.product.name}
-                          className="w-16 h-16 object-cover rounded-md"
+                          className="w-16 h-16 object-cover rounded-xl"
                         />
                         {item.product.isSale && (
-                          <Badge className="absolute -top-2 -right-2 bg-accent text-accent-foreground text-xs px-1 py-0">
-                            Sale
-                          </Badge>
+                          <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-full">
+                            SALE
+                          </span>
                         )}
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <h4 className="font-semibold text-sm truncate">
-                          {item.product.name}
-                        </h4>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <span className="font-bold text-primary">
-                            {formatPrice(item.product.price)}
-                          </span>
-                          {item.product.originalPrice && parseFloat(item.product.originalPrice) > parseFloat(item.product.price) && (
-                            <span className="text-sm text-gray-500 line-through">
-                              {formatPrice(item.product.originalPrice)}
-                            </span>
-                          )}
+                        <div className="flex items-start justify-between gap-2">
+                          <div className="min-w-0">
+                            <h4 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-1">
+                              {item.product.name}
+                            </h4>
+                            <div className="flex items-center gap-1.5 mt-0.5">
+                              <span className="text-sm font-bold text-gray-900">
+                                {formatPrice(item.product.price)}
+                              </span>
+                              {item.product.originalPrice && parseFloat(item.product.originalPrice) > parseFloat(item.product.price) && (
+                                <span className="text-xs text-gray-400 line-through">
+                                  {formatPrice(item.product.originalPrice)}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => removeFromCart(item.product.id)}
+                            className="h-7 w-7 p-0 rounded-lg text-gray-300 hover:text-red-500 hover:bg-red-50 flex-shrink-0 -mr-1"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </Button>
                         </div>
-                        <p className="text-xs text-gray-500 mt-1">
-                          {formatPrice(parseFloat(item.product.price) * item.quantity)} total
-                        </p>
-                      </div>
 
-                      <div className="flex flex-col items-end space-y-2">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeFromCart(item.product.id)}
-                          className="h-8 w-8 p-0 text-gray-400 hover:text-destructive"
-                        >
-                          <Trash2 className="h-4 w-4" />
-                        </Button>
-
-                        <div className="flex items-center space-x-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleQuantityChange(item.product.id, item.quantity, -1)}
-                            className="h-8 w-8 p-0"
-                          >
-                            <Minus className="h-3 w-3" />
-                          </Button>
-                          <span className="text-sm font-medium w-8 text-center">
-                            {item.quantity}
+                        <div className="flex items-center justify-between mt-2">
+                          <div className="flex items-center gap-1 bg-gray-50 rounded-lg p-0.5">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleQuantityChange(item.product.id, item.quantity, -1)}
+                              className="h-6 w-6 p-0 rounded-md text-gray-600 hover:bg-white hover:shadow-sm"
+                            >
+                              <Minus className="h-3 w-3" />
+                            </Button>
+                            <span className="text-sm font-bold w-6 text-center text-gray-900">
+                              {item.quantity}
+                            </span>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleQuantityChange(item.product.id, item.quantity, 1)}
+                              className="h-6 w-6 p-0 rounded-md text-gray-600 hover:bg-white hover:shadow-sm"
+                            >
+                              <Plus className="h-3 w-3" />
+                            </Button>
+                          </div>
+                          <span className="text-xs font-semibold text-gray-500">
+                            {formatPrice((parseFloat(item.product.price) * item.quantity).toString())}
                           </span>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleQuantityChange(item.product.id, item.quantity, 1)}
-                            className="h-8 w-8 p-0"
-                          >
-                            <Plus className="h-3 w-3" />
-                          </Button>
                         </div>
                       </div>
                     </motion.div>
@@ -168,30 +225,64 @@ export default function CartModal() {
           )}
         </div>
 
+        {/* Footer */}
         {cartItems && cartItems.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="border-t pt-4 space-y-4"
+            className="border-t border-gray-100 bg-white"
           >
-            <div className="flex justify-between items-center">
-              <span className="text-lg font-semibold">Total:</span>
-              <span className="text-2xl font-bold text-primary">
-                {formatPrice(totalPrice)}
+            {/* Coupon */}
+            <div className="px-6 pt-4">
+              <div className="flex items-center gap-2 p-3 rounded-xl border border-dashed border-gray-200 bg-gray-50 cursor-pointer hover:border-blue-300 hover:bg-blue-50/50 transition-colors">
+                <Tag className="h-3.5 w-3.5 text-gray-400" />
+                <span className="text-xs text-gray-500 font-medium">Apply coupon code</span>
+              </div>
+            </div>
+
+            {/* Totals */}
+            <div className="px-6 py-4 space-y-2">
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Subtotal ({itemCount} items)</span>
+                <span className="font-medium text-gray-900">{formatPrice(totalPrice.toString())}</span>
+              </div>
+              <div className="flex justify-between text-sm text-gray-500">
+                <span>Shipping</span>
+                <span className={totalPrice >= freeShippingThreshold ? "text-green-600 font-semibold" : "font-medium text-gray-900"}>
+                  {totalPrice >= freeShippingThreshold ? "FREE" : formatPrice("9.99")}
+                </span>
+              </div>
+              <Separator className="my-2" />
+              <div className="flex justify-between">
+                <span className="font-bold text-gray-900">Total</span>
+                <span className="text-xl font-bold text-gray-900">
+                  {formatPrice((totalPrice >= freeShippingThreshold ? totalPrice : totalPrice + 9.99).toString())}
+                </span>
+              </div>
+            </div>
+
+            {/* Trust badges */}
+            <div className="px-6 pb-3 flex items-center justify-center gap-4">
+              <span className="flex items-center gap-1 text-xs text-gray-400">
+                <Shield className="h-3 w-3 text-green-500" /> Secure checkout
+              </span>
+              <span className="flex items-center gap-1 text-xs text-gray-400">
+                <Package className="h-3 w-3 text-blue-500" /> Easy returns
               </span>
             </div>
-            
-            <div className="space-y-2">
+
+            {/* Buttons */}
+            <div className="px-6 pb-6 space-y-2">
               <Button
-                className="w-full btn-primary"
-                size="lg"
+                className="w-full btn-primary rounded-full h-12 text-base font-semibold gap-2"
                 onClick={handleCheckout}
               >
-                Proceed to Checkout
+                Checkout
+                <ArrowRight className="h-4 w-4" />
               </Button>
               <Button
-                variant="outline"
-                className="w-full"
+                variant="ghost"
+                className="w-full rounded-full h-10 text-sm text-gray-500 hover:text-gray-700"
                 onClick={() => { closeCart(); navigate("/products"); }}
               >
                 Continue Shopping

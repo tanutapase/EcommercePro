@@ -1,0 +1,467 @@
+Transform this eCommerce website into a world-class premium modern shopping experience. Keep the design minimal, luxurious, elegant, lightning-fast, and production-ready. Do NOT create a generic template. The final result should feel like a combination of Apple, Nike, Nothing, Linear, Vercel, Arc Browser, Shopify, and premium SaaS products.
+
+## Overall Design Philosophy
+
+* Premium minimalism
+* Lots of whitespace
+* Pixel-perfect alignment
+* Modern typography (Inter or Geist)
+* Rounded corners (16–24px)
+* Glassmorphism where appropriate
+* Soft shadows only
+* Smooth gradients
+* Micro interactions everywhere
+* Fully responsive
+* Mobile-first optimization
+* Accessibility friendly
+* Fast loading
+* Clean animations
+* High quality icons (Lucide)
+
+---
+
+# NAVBAR
+
+Redesign the navigation completely.
+
+Features:
+
+* Floating glass navbar
+* Blur background while scrolling
+* Smooth shrink animation
+* Sticky navbar
+* Mega menu for categories
+* Animated search bar with suggestions
+* Wishlist badge
+* Cart badge
+* User profile dropdown
+* Dark mode toggle
+* Country selector
+* Language selector
+* Notification bell
+* Smooth hover underline animation
+
+---
+
+# HERO SECTION
+
+Replace the current hero.
+
+Create a premium split layout.
+
+Left:
+
+Headline:
+
+Discover Products
+You'll Love.
+
+Gradient text on important words.
+
+Subheading:
+
+Premium curated products with lightning-fast delivery, trusted quality, and unbeatable prices.
+
+Buttons:
+
+Shop Collection
+
+Explore Deals
+
+Small trust indicators:
+
+★★★★★
+
+50,000+ Happy Customers
+
+Free Shipping
+
+Secure Payments
+
+Right:
+
+Large floating hero image
+
+Background decorative gradients
+
+Floating product cards
+
+Animated discount badge
+
+Floating reviews
+
+Parallax effect
+
+Mouse movement interaction
+
+Background blobs
+
+Aurora gradient
+
+Particle effects
+
+---
+
+# CATEGORIES
+
+Beautiful category cards
+
+Hover lift animation
+
+3D icons
+
+Animated borders
+
+Popular badge
+
+New badge
+
+Category images
+
+---
+
+# FEATURED PRODUCTS
+
+Premium cards
+
+Large images
+
+Hover zoom
+
+Quick View
+
+Wishlist
+
+Compare
+
+Add to Cart
+
+Rating
+
+Reviews
+
+Discount %
+
+Color variants
+
+Stock indicator
+
+Sale badge
+
+Smooth hover glow
+
+Image swap on hover
+
+---
+
+# FLASH SALE
+
+Countdown timer
+
+Animated progress bars
+
+Limited stock
+
+Lightning animations
+
+Trending products
+
+---
+
+# WHY CHOOSE US
+
+Icon cards
+
+Free Shipping
+
+Easy Returns
+
+Secure Payment
+
+24/7 Support
+
+Warranty
+
+Premium Packaging
+
+Animated counters
+
+---
+
+# SHOPPING EXPERIENCE
+
+One-click add to cart
+
+Smooth cart drawer
+
+Animated checkout
+
+Wishlist
+
+Recently viewed
+
+Recently purchased
+
+Compare products
+
+Quick buy
+
+Guest checkout
+
+Saved addresses
+
+Coupons
+
+Reward points
+
+---
+
+# SEARCH
+
+AI-style search
+
+Instant suggestions
+
+Popular searches
+
+Recent searches
+
+Voice search
+
+Search history
+
+Filters
+
+Price slider
+
+Brand
+
+Rating
+
+Availability
+
+Color
+
+Size
+
+---
+
+# PRODUCT PAGE
+
+Large gallery
+
+360° preview
+
+Zoom
+
+Multiple images
+
+Video
+
+Specifications
+
+Description
+
+Reviews
+
+Questions
+
+Recommended products
+
+Recently viewed
+
+Bundle offers
+
+Shipping estimate
+
+Return policy
+
+---
+
+# CART
+
+Sliding cart drawer
+
+Animated totals
+
+Coupon input
+
+Shipping estimator
+
+Gift wrapping
+
+Save for later
+
+Cross-sell
+
+Upsell
+
+---
+
+# CHECKOUT
+
+Beautiful stepper
+
+Shipping
+
+Payment
+
+Review
+
+Order complete animation
+
+Apple Pay
+
+Google Pay
+
+UPI
+
+Credit Card
+
+COD
+
+Progress indicator
+
+---
+
+# FOOTER
+
+Minimal premium footer
+
+Newsletter
+
+Social links
+
+App download
+
+Policies
+
+About
+
+Contact
+
+Careers
+
+Support
+
+---
+
+# ANIMATIONS
+
+Use Framer Motion.
+
+Smooth fade
+
+Scale
+
+Slide
+
+Hover lift
+
+Magnetic buttons
+
+Ripple effects
+
+Page transitions
+
+Loading skeletons
+
+Parallax
+
+Floating cards
+
+Scroll reveal
+
+Number counters
+
+---
+
+# COLORS
+
+White background
+
+Soft gray sections
+
+Blue primary accent
+
+Black text
+
+Premium gradients
+
+No harsh colors
+
+---
+
+# TYPOGRAPHY
+
+Large bold headings
+
+Elegant spacing
+
+Readable paragraphs
+
+Perfect hierarchy
+
+---
+
+# MOBILE
+
+Bottom navigation
+
+Floating cart
+
+Gesture friendly
+
+Large tap targets
+
+Responsive images
+
+---
+
+# PERFORMANCE
+
+Lazy loading
+
+Image optimization
+
+Code splitting
+
+SEO optimization
+
+Fast LCP
+
+Prefetch routes
+
+PWA support
+
+Offline support
+
+---
+
+# MICRO INTERACTIONS
+
+Buttons animate
+
+Cards glow
+
+Icons rotate slightly
+
+Images zoom
+
+Badges pulse
+
+Navbar blur
+
+Search expands smoothly
+
+Everything feels premium.
+
+---
+
+# FINAL GOAL
+
+The website should no longer look like a simple React eCommerce template.
+
+It should look like a premium, modern, investor-ready eCommerce platform that could realistically compete with Apple Store, Nike, Shopify, Nothing, Amazon Luxury, and top UI showcases on Awwwards.
+
+Every section must be redesigned with beautiful spacing, smooth animations, perfect responsiveness, premium typography, glass effects, subtle gradients, elegant interactions, and flawless user experience.

@@ -1,215 +1,237 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 import { motion } from "framer-motion";
-import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Linkedin, 
-  Phone, 
-  Mail, 
-  MapPin 
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Youtube,
+  Mail,
+  Zap,
+  ArrowRight,
+  MapPin,
+  Phone,
+  Shield,
+  Truck,
+  RotateCcw,
+  HeadphonesIcon,
 } from "lucide-react";
 
 export default function Footer() {
-  const quickLinks = [
-    { href: "/", label: "Home" },
-    { href: "/products", label: "Products" },
-    { href: "/products?category=1", label: "Fashion" },
-    { href: "/products?category=2", label: "Electronics" },
-    { href: "/about", label: "About Us" },
-  ];
+  const [email, setEmail] = useState("");
+  const [subscribed, setSubscribed] = useState(false);
 
-  const customerService = [
-    { href: "/help", label: "Help Center" },
-    { href: "/shipping", label: "Shipping Info" },
-    { href: "/returns", label: "Returns" },
-    { href: "/size-guide", label: "Size Guide" },
-    { href: "/track-order", label: "Track Order" },
-  ];
-
-  const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: Linkedin, href: "#", label: "LinkedIn" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        staggerChildren: 0.1,
-      },
-    },
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setSubscribed(true);
+      setEmail("");
+    }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+  const links = {
+    shop: [
+      { href: "/products", label: "All Products" },
+      { href: "/products?category=1", label: "Fashion" },
+      { href: "/products?category=2", label: "Electronics" },
+      { href: "/products?category=3", label: "Home & Decor" },
+      { href: "/products?category=4", label: "Sports" },
+    ],
+    company: [
+      { href: "#", label: "About Us" },
+      { href: "#", label: "Careers" },
+      { href: "#", label: "Press" },
+      { href: "#", label: "Blog" },
+      { href: "#", label: "Partners" },
+    ],
+    support: [
+      { href: "#", label: "Help Center" },
+      { href: "#", label: "Track Order" },
+      { href: "#", label: "Returns & Exchanges" },
+      { href: "#", label: "Shipping Info" },
+      { href: "#", label: "Contact Us" },
+    ],
   };
+
+  const social = [
+    { icon: Twitter, href: "#", label: "Twitter", color: "hover:bg-[#1DA1F2]" },
+    { icon: Instagram, href: "#", label: "Instagram", color: "hover:bg-gradient-to-br hover:from-purple-500 hover:to-pink-500" },
+    { icon: Facebook, href: "#", label: "Facebook", color: "hover:bg-[#1877F2]" },
+    { icon: Youtube, href: "#", label: "YouTube", color: "hover:bg-[#FF0000]" },
+    { icon: Linkedin, href: "#", label: "LinkedIn", color: "hover:bg-[#0A66C2]" },
+  ];
+
+  const perks = [
+    { icon: Truck, label: "Free Shipping", sub: "On orders $50+" },
+    { icon: RotateCcw, label: "Easy Returns", sub: "30-day policy" },
+    { icon: Shield, label: "Secure Pay", sub: "256-bit SSL" },
+    { icon: HeadphonesIcon, label: "24/7 Support", sub: "Always here" },
+  ];
 
   return (
-    <footer className="bg-secondary text-white">
-      {/* Newsletter Section */}
-      <motion.section
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="bg-primary text-white py-16"
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.h3 variants={itemVariants} className="text-3xl font-bold mb-4">
-            Stay Updated
-          </motion.h3>
-          <motion.p variants={itemVariants} className="text-xl mb-8 text-blue-100">
-            Subscribe to our newsletter for exclusive deals and new arrivals
-          </motion.p>
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto"
-          >
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 bg-white text-gray-800 placeholder:text-gray-500 border-0 focus:ring-4 focus:ring-blue-300"
-            />
-            <Button className="bg-accent text-accent-foreground hover:bg-accent/90 font-semibold transform hover:scale-105 transition-all duration-200">
-              Subscribe
-            </Button>
-          </motion.div>
+    <footer className="bg-gray-950 text-gray-300">
+      {/* Perks Bar */}
+      <div className="border-b border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            {perks.map((perk, i) => {
+              const Icon = perk.icon;
+              return (
+                <motion.div
+                  key={perk.label}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08 }}
+                  viewport={{ once: true }}
+                  className="flex items-center gap-3"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center flex-shrink-0">
+                    <Icon className="h-5 w-5 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-sm font-semibold text-white">{perk.label}</p>
+                    <p className="text-xs text-gray-500">{perk.sub}</p>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
         </div>
-      </motion.section>
+      </div>
 
       {/* Main Footer */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true }}
-        variants={containerVariants}
-        className="py-16"
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {/* Brand Section */}
-            <motion.div variants={itemVariants}>
-              <h4 className="text-2xl font-bold mb-4">
-                Elite<span className="text-primary">Shop</span>
-              </h4>
-              <p className="text-gray-300 mb-6">
-                Your premier destination for quality products and exceptional shopping experience.
-              </p>
-              <div className="flex space-x-4">
-                {socialLinks.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <motion.a
-                      key={social.label}
-                      href={social.href}
-                      whileHover={{ scale: 1.2, y: -2 }}
-                      whileTap={{ scale: 0.9 }}
-                      className="text-gray-300 hover:text-white transition-colors duration-200"
-                      aria-label={social.label}
-                    >
-                      <Icon className="h-5 w-5" />
-                    </motion.a>
-                  );
-                })}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
+          {/* Brand Column */}
+          <div className="lg:col-span-2">
+            <Link href="/">
+              <div className="flex items-center gap-2 cursor-pointer mb-4">
+                <div className="w-9 h-9 rounded-xl blue-gradient flex items-center justify-center shadow-lg shadow-blue-500/30">
+                  <Zap className="h-4 w-4 text-white fill-white" />
+                </div>
+                <span className="text-xl font-bold text-white">
+                  Elite<span className="gradient-text">Shop</span>
+                </span>
               </div>
-            </motion.div>
+            </Link>
+            <p className="text-sm text-gray-400 leading-relaxed mb-6 max-w-xs">
+              Your premier destination for curated premium products. Quality guaranteed, style delivered, satisfaction assured.
+            </p>
 
-            {/* Quick Links */}
-            <motion.div variants={itemVariants}>
-              <h5 className="font-semibold mb-4">Quick Links</h5>
-              <ul className="space-y-2">
-                {quickLinks.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>
-                      <motion.div
-                        whileHover={{ x: 4 }}
-                        className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
-                      >
-                        {link.label}
-                      </motion.div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
+            {/* Newsletter */}
+            <div className="mb-6">
+              <p className="text-sm font-semibold text-white mb-3">Stay in the loop</p>
+              {subscribed ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="flex items-center gap-2 text-green-400 text-sm font-medium"
+                >
+                  <span className="w-6 h-6 rounded-full bg-green-500/20 flex items-center justify-center">✓</span>
+                  You're subscribed! Welcome aboard.
+                </motion.div>
+              ) : (
+                <form onSubmit={handleSubscribe} className="flex gap-2">
+                  <Input
+                    type="email"
+                    placeholder="your@email.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="flex-1 h-10 bg-gray-800 border-gray-700 text-white placeholder:text-gray-500 rounded-full text-sm focus:border-blue-500"
+                  />
+                  <Button
+                    type="submit"
+                    size="sm"
+                    className="h-10 px-4 rounded-full btn-primary flex-shrink-0"
+                  >
+                    <ArrowRight className="h-4 w-4" />
+                  </Button>
+                </form>
+              )}
+            </div>
 
-            {/* Customer Service */}
-            <motion.div variants={itemVariants}>
-              <h5 className="font-semibold mb-4">Customer Service</h5>
-              <ul className="space-y-2">
-                {customerService.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href}>
-                      <motion.div
-                        whileHover={{ x: 4 }}
-                        className="text-gray-300 hover:text-white transition-colors duration-200 cursor-pointer"
-                      >
-                        {link.label}
-                      </motion.div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-
-            {/* Contact Info */}
-            <motion.div variants={itemVariants}>
-              <h5 className="font-semibold mb-4">Contact Info</h5>
-              <div className="space-y-3 text-gray-300">
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  className="flex items-center space-x-2"
-                >
-                  <Phone className="h-4 w-4" />
-                  <span>+1 (555) 123-4567</span>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  className="flex items-center space-x-2"
-                >
-                  <Mail className="h-4 w-4" />
-                  <span>info@eliteshop.com</span>
-                </motion.div>
-                <motion.div
-                  whileHover={{ x: 4 }}
-                  className="flex items-center space-x-2"
-                >
-                  <MapPin className="h-4 w-4" />
-                  <span>123 Shopping St, NY 10001</span>
-                </motion.div>
-              </div>
-            </motion.div>
+            {/* Social */}
+            <div className="flex items-center gap-2">
+              {social.map((s) => {
+                const Icon = s.icon;
+                return (
+                  <motion.a
+                    key={s.label}
+                    href={s.href}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    whileTap={{ scale: 0.95 }}
+                    className={`w-9 h-9 rounded-xl bg-gray-800 flex items-center justify-center text-gray-400 hover:text-white transition-all duration-200 ${s.color}`}
+                    aria-label={s.label}
+                  >
+                    <Icon className="h-4 w-4" />
+                  </motion.a>
+                );
+              })}
+            </div>
           </div>
 
-          <Separator className="my-8 bg-gray-700" />
-
-          <motion.div
-            variants={itemVariants}
-            className="text-center text-gray-300"
-          >
-            <p>
-              &copy; 2024 EliteShop. All rights reserved. |{" "}
-              <Link href="/privacy">
-                <span className="hover:text-white cursor-pointer">Privacy Policy</span>
-              </Link>{" "}
-              |{" "}
-              <Link href="/terms">
-                <span className="hover:text-white cursor-pointer">Terms of Service</span>
-              </Link>
-            </p>
-          </motion.div>
+          {/* Links */}
+          {[
+            { title: "Shop", items: links.shop },
+            { title: "Company", items: links.company },
+            { title: "Support", items: links.support },
+          ].map((section, si) => (
+            <div key={section.title}>
+              <p className="text-sm font-bold text-white mb-4 uppercase tracking-wider">
+                {section.title}
+              </p>
+              <ul className="space-y-2.5">
+                {section.items.map((link, li) => (
+                  <motion.li
+                    key={link.href + link.label}
+                    initial={{ opacity: 0, x: -8 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ delay: li * 0.05 }}
+                    viewport={{ once: true }}
+                  >
+                    <Link href={link.href}>
+                      <motion.span
+                        whileHover={{ x: 4 }}
+                        className="text-sm text-gray-400 hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1 group"
+                      >
+                        {link.label}
+                        <ArrowRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity -ml-1" />
+                      </motion.span>
+                    </Link>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      </motion.div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-xs text-gray-500">
+            © 2025 EliteShop. All rights reserved.
+          </p>
+          <div className="flex items-center gap-4 text-xs text-gray-500">
+            <a href="#" className="hover:text-gray-300 transition-colors">Privacy Policy</a>
+            <span className="text-gray-700">·</span>
+            <a href="#" className="hover:text-gray-300 transition-colors">Terms of Service</a>
+            <span className="text-gray-700">·</span>
+            <a href="#" className="hover:text-gray-300 transition-colors">Cookie Settings</a>
+          </div>
+          <div className="flex items-center gap-2 text-xs text-gray-500">
+            <span>Accepted payments:</span>
+            {["VISA", "MC", "AMEX", "PayPal"].map((p) => (
+              <span key={p} className="px-2 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-bold">
+                {p}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
     </footer>
   );
 }
