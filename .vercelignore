@@ -1,0 +1,6 @@
+node_modules
+.git
+.cache
+attached_assets
+generated-icon.png
+dist
